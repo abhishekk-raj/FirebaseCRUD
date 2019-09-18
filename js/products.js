@@ -38,12 +38,41 @@ function createNewProduct() {
     const database = firebase.database();
     // const pushKey = database.ref('Products/').push().key;
     const fireRef = database.ref(`Products/${database.ref('Products/').push().key}`);
-    
+
     fireRef.update(newProduct)
-    .then(() => {
-        console.log('New Product created successfully');
-    })
-    .catch((err) => {
-        console.log('Error while creating new Product :: ', err.message);
+        .then(() => {
+            console.log('New Product created successfully');
+        })
+        .catch((err) => {
+            console.log('Error while creating new Product :: ', err.message);
+        });
+}
+
+/**
+ * Get all Products from Database
+ */
+function getAllProducts() {
+    const query = firebase.database().ref('Products/').orderByKey();
+    let count = 0;
+
+    query.on('value', (snapshot) => {
+        snapshot.forEach((data) => {
+            count++;
+            console.log('Snapshot :: ', data.val());
+            $('#productList').append(`<tr>
+                <th scope="row"> ${count} </th>
+                <td> ${data.val().productCode} </td>
+                <td> ${data.val().productName} </td>
+                <td> ${'&#8377'} ${data.val().price} </td>
+                <td> ${data.val().releaseDate.substring(0, 10)} </td>
+                <td> ${data.val().description} </td>
+                <td class="d-flex justify-content-center"> 
+                    <button type="button" class="btn btn-secondary"><i class="fas fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger ml-2"><i class="fas fa-trash-alt"></i></button>
+                </td>
+            </tr>`)
+        });
     });
 }
+
+getAllProducts();
