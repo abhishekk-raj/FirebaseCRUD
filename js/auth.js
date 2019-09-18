@@ -54,10 +54,26 @@ function updateProfile(auth, name) {
     })
         .then((user) => {
             showToast('Registration Successful', 'success')
+            logout();
         })
         .catch((err) => {
             console.log('Error occurred while updating user :: ', err.message);
             showToast(err.message, 'failed');
+        });
+}
+
+/**
+ * Logout User and
+ * Navigate to Login page
+ */
+
+function logout() {
+    firebase.auth().signOut()
+        .then(() => {
+            navigateToLogin();
+        })
+        .catch(err => {
+            console.log("Error while singing out user :: ", err.message);
         });
 }
 
@@ -77,4 +93,8 @@ function showToast(toastMessage, messageType) {
 
 function navigateToProductsList() {
     window.location.href = 'products-list.html';
+}
+
+function navigateToLogin() {
+    window.location.href = 'index.html';
 }
