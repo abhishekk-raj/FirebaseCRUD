@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Product</title>
+
+    <link rel='stylesheet' type="text/css" href="./css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+</head>
+
+<body>
+    <!-- Nav-bar code starts here -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">AwesomeApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="products-list.html">Home <span
+                        class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Create Product</a>
+            </div>
+
+            <div class="navbar-nav ml-auto">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" id="userDisplayName"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin: 0"></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDisplayName">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="height: 80vh;">
+            <div class="col-6 my-auto">
+                <div class="card">
+                    <div class="card-header">
+                        Create Product
+                    </div>
+                    <div class="card-body">
+                        <form id="createProductForm" class="col-12">
+                            <!-- Product name -->
+                            <div class="form-group mt-3">
+                                <label for="product_name" hidden>Product name</label>
+                                <input type="text" name="product_name" class="form-control" id="product_name"
+                                    placeholder="Product name">
+                            </div>
+
+                            <!-- Product code -->
+                            <div class="form-group mt-4">
+                                <label for="product_code" hidden>Product Code</label>
+                                <input type="text" name="product_code" class="form-control" id="product_code"
+                                    placeholder="Product code">
+                            </div>
+
+                            <!-- Release date -->
+                            <div class="form-group mt-4">
+                                <label for="release_date" hidden>Release date</label>
+                                <input type="date" name="release_date" class="form-control" id="release_date"
+                                    placeholder="Release date">
+                            </div>
+
+                            <!-- Price -->
+                            <div class="form-group mt-4">
+                                <label for="price" hidden>Price</label>
+                                <input type="number" name="price" class="form-control" id="price" placeholder="Price">
+                            </div>
+
+                            <!-- Description -->
+                            <div class="form-group mt-4">
+                                <label for="description" hidden>Description</label>
+                                <textarea name="description" class="form-control" id="description"
+                                    placeholder="Description"></textarea>
+                            </div>
+                            <div class="d-flex">
+                                <a href="#" class="btn btn-primary mt-2 p-2 align-self-center"
+                                    onclick="createNewProduct()">Create</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="./config/firebase-config.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="js/products.js"></script>
+</body>
+
+</html>
