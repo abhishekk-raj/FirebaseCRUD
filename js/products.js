@@ -42,6 +42,7 @@ function createNewProduct() {
     fireRef.update(newProduct)
         .then(() => {
             console.log('New Product created successfully');
+            window.location.href = 'products-list.html';
         })
         .catch((err) => {
             console.log('Error while creating new Product :: ', err.message);
@@ -67,12 +68,21 @@ function getAllProducts() {
                 <td> ${data.val().releaseDate.substring(0, 10)} </td>
                 <td> ${data.val().description} </td>
                 <td class="d-flex justify-content-center"> 
-                    <button type="button" class="btn btn-secondary"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-danger ml-2"><i class="fas fa-trash-alt"></i></button>
+                    <button id="${data.val().productCode}" type="button" class="btn btn-secondary" onClick="editSelectedProduct(this)" ><i class="fas fa-edit"></i></button>
+                    <button id="${data.val().productCode}" type="button" class="btn btn-danger ml-2" onClick="deleteSelectedProduct(this)" ><i class="fas fa-trash-alt"></i></button>
                 </td>
             </tr>`)
         });
     });
+}
+
+function editSelectedProduct(product) {
+    console.log('Selected Data :: ', product.id);
+    window.location.href = `update-product.html?id=${product.id}`;
+}
+
+function deleteSelectedProduct(product) {
+    console.log('Selected Product :: ', product.id);
 }
 
 getAllProducts();
