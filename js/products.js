@@ -1,3 +1,4 @@
+let count = 0;
 /***
  * Check user auth state
  */
@@ -54,7 +55,6 @@ function createNewProduct() {
  */
 function getAllProducts() {
     const query = firebase.database().ref('Products/').orderByKey();
-    let count = 0;
 
     query.on('value', (snapshot) => {
         snapshot.forEach((data) => {
@@ -81,8 +81,41 @@ function editSelectedProduct(product) {
     window.location.href = `update-product.html?id=${product.id}`;
 }
 
+/**
+ * Loop through all data,
+ * If ID matches with selected data ID, then
+ * Delete Product
+ */
 function deleteSelectedProduct(product) {
     console.log('Selected Product :: ', product.id);
+    const query = firebase.database().ref('Products/').orderByKey();
+
+    query.on('value', (snapshot) => {
+        snapshot.forEach((data) => {
+            if (data.val().productCode === product.id) {
+                const database = firebase.database();
+                const fireRef = database.ref(`Products/${data.key}`);
+
+                fireRef.set(null)
+                    .then(() => {
+                        console.log('Product deleted successfully');
+                    })
+                    .catch(err => {
+                        console.log('Error while deleting Product :: ', err.message);
+                    });
+            }
+        });
+    });
 }
+
+/**
+ * Listener on delete operation
+ * If any product is deleted, then update the list
+ */
+const fireRef = firebase.database().ref('Products');
+fireRef.on('child_removed', function (data) {
+    document.getElementById('productList').innerHTML = "";
+    count = 0;
+});
 
 getAllProducts();
